@@ -1,16 +1,13 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import input_functions
+import functions
+import matplotlib.pyplot as plt
+func = functions.Abs()
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# interpolated_func = functions.interpolation_newton_polynomial([(x, func.calc(x)) for x in x_points])
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# input_functions.plotting(func, -4,4)
+# input_functions.plotting(interpolated_func, -4,4)
+# plt.show()
+input_functions.built_in_functions()
