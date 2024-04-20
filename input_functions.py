@@ -6,7 +6,7 @@ import functions
 import matplotlib.pyplot as plt
 
 
-def plotting(func, a, b, points=None, step=None, color='r', linestyle='dotted'):
+def plotting(func, a, b, points=None, step=None, color='C0', linestyle='dotted'):
     if not step:
         step = abs(a - b)/100
     x_vals, y_vals = func.calc_points(a, b, step)
@@ -61,12 +61,12 @@ def intro(): # zlozenia funkcji podawane sa od lewej do prawej, czyli w przypadk
 def interpolate(func, a, b, points):
     plotting(func, a, b)
     interpolated_func = functions.interpolation_newton_polynomial(points)
-    plotting(interpolated_func, a, b, points, color='C0', linestyle='solid')
+    plotting(interpolated_func, a, b, points, color='r', linestyle='solid')
 
 def jitter(a, b, num_of_nodes, range = None):
     step = (b - a) / num_of_nodes
     if not range: range = step / 4
-    x_points = np.arange(a, b+step, step=step)
+    x_points = np.arange(a, b, step=step)
     return [one_point_jitter(x, range) for x in x_points]
 
 def one_point_jitter(x, range):
