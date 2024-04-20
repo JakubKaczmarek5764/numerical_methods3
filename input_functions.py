@@ -66,8 +66,8 @@ def interpolate(func, a, b, points):
 def jitter(a, b, num_of_nodes, range = None):
     step = (b - a) / num_of_nodes
     if not range: range = step / 4
-    x_points = np.arange(a, b, step=step)
-    return [one_point_jitter(x, range) for x in x_points]
+    x_points = np.arange(a, b+step, step=step)
+    return [a] + [one_point_jitter(x, range) for x in x_points[1:-1]] + [b]
 
 def one_point_jitter(x, range):
     return x - (random.random() * range - range / 2)
