@@ -6,12 +6,12 @@ import functions
 import matplotlib.pyplot as plt
 
 
-def plotting(func, a, b, points=None, step=None):
+def plotting(func, a, b, points=None, step=None, color='r', linestyle='dotted'):
     if not step:
         step = abs(a - b)/100
     x_vals, y_vals = func.calc_points(a, b, step)
     plt.grid(True)
-    plt.plot(x_vals, y_vals)
+    plt.plot(x_vals, y_vals, linestyle=linestyle, color=color)
     plt.axhline(y=0, c='green')
     if a <= 0 <= b:
         plt.axvline(x=0, c='green')
@@ -61,7 +61,7 @@ def intro(): # zlozenia funkcji podawane sa od lewej do prawej, czyli w przypadk
 def interpolate(func, a, b, points):
     plotting(func, a, b)
     interpolated_func = functions.interpolation_newton_polynomial(points)
-    plotting(interpolated_func, a, b, points)
+    plotting(interpolated_func, a, b, points, color='C0', linestyle='solid')
 
 def jitter(a, b, num_of_nodes, range = None):
     step = (b - a) / num_of_nodes
@@ -71,23 +71,44 @@ def jitter(a, b, num_of_nodes, range = None):
 
 def one_point_jitter(x, range):
     return x - random.random() * range - range / 2
-def built_in_functions():
-    funcs = [
-        functions.Polynomial([2.1, 2.3, -2.5]),
-        functions.Trygonometrical(3),
-        functions.Polynomial([2.1, 1])
-    ]
-    comp1 = functions.Composition([functions.Polynomial([2.1, 2.3, -2.5]),
-                                   functions.Exponential(2.1),
-                                   functions.Polynomial([2.1, 1])])
-    comp2 = functions.Composition([functions.Trygonometrical(0), functions.Trygonometrical(1)])
-    a = 0.1
-    b = 3
-    num_of_nodes = 10
-    x_points = jitter(a, b,10)
+
+def built_in_plot(a, b, num_of_nodes, func):
+    x_points = jitter(a, b, num_of_nodes)
     print(x_points)
-    func_ptr = functions.Trygonometrical(0)
+    func_ptr = func
     points = [(x, func_ptr.calc(x)) for x in x_points]
+    plotting(func, a, b)
     interpolate(func_ptr, a, b, points)
     plt.show()
+
+def built_in_functions():
+    funcs = [
+        functions.Polynomial([0.5, 1]),         # liniowa
+        functions.Polynomial([2.1, 2.3, -2.5]), # wielomian
+        functions.Trygonometrical(3),           # trygonometryczna
+    ]
+
+    comp1 = functions.Composition([functions.Polynomial([2.1, 2.3, -2.5]),
+                                   functions.Exponential(2.1),
+                                   functions.Trygonometrical(1)])       # złożenie
+
+    # liniowa
+    built_in_plot(-4, 4, 2, funcs[0])
+    built_in_plot(-4, 4, 10, funcs[0])
+
+    # wielomian
+    built_in_plot(-0.5, 10, 2, funcs[1])
+    built_in_plot(-0.5, 10, 10, funcs[1])
+
+    # moduł
+    built_in_plot(-5, 5, 2, functions.Abs())
+    built_in_plot(-5, 5, 5, functions.Abs())
+
+    # trygonometryczna
+    built_in_plot(0.1, 3, 2, funcs[2])
+    built_in_plot(0.1, 3, 10, funcs[2])
+
+    # złożenie
+    built_in_plot(-1.6, 3, 3, comp1)
+    built_in_plot(-1.6, 3, 10, comp1)
 
