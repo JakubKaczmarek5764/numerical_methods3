@@ -70,7 +70,7 @@ def jitter(a, b, num_of_nodes, range = None):
     return [one_point_jitter(x, range) for x in x_points]
 
 def one_point_jitter(x, range):
-    return x - random.random() * range - range / 2
+    return x - (random.random() * range - range / 2)
 
 def built_in_plot(a, b, num_of_nodes, func):
     x_points = jitter(a, b, num_of_nodes)
