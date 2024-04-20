@@ -97,7 +97,8 @@ def built_in_functions():
     comp1 = functions.Composition([functions.Polynomial([2.1, 2.3, -2.5]),
                                    functions.Exponential(2.1),
                                    functions.Trygonometrical(1)])       # złożenie
-
+    comp2 = functions.Composition([functions.Trygonometrical(0),
+                                  functions.Polynomial([5, 0])])
     # liniowa
     built_in_plot(-4, 4, 2, funcs[0])
     built_in_plot(-4, 4, 5, funcs[0])
@@ -121,3 +122,8 @@ def built_in_functions():
     built_in_plot(-1.6, 3, 6, comp1)
     built_in_plot(-1.6, 3, 12, comp1)
 
+    # złożenie
+    built_in_plot(-2, 2, 3, comp2)
+    built_in_plot(-2, 2, 6, comp2)
+    built_in_plot(-2, 2, 12, comp2)
+    built_in_plot(-2, 2, 16, comp2)
