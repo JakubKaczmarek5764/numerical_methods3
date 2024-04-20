@@ -63,11 +63,16 @@ def interpolate(func, a, b, points):
     interpolated_func = functions.interpolation_newton_polynomial(points)
     plotting(interpolated_func, a, b, points, color='r', linestyle='solid')
 
-def jitter(a, b, num_of_nodes, range = None):
-    step = (b - a) / num_of_nodes
-    if not range: range = step / 4
-    x_points = np.arange(a, b+step, step=step)
-    return [a] + [one_point_jitter(x, range) for x in x_points[1:-1]] + [b]
+def jitter(a, b, num_of_nodes, _range = None):
+    step = (b - a) / (num_of_nodes - 1)
+    if not _range: _range = step / 4
+    print(a)
+    print(step)
+    print(num_of_nodes)
+    x_points = [(a + i * step) for i in range(num_of_nodes)]
+    print(x_points)
+    # x_points = np.arange(a, b+step, step=step)
+    return [a] + [one_point_jitter(x, _range) for x in x_points[1:-1]] + [b]
 
 def one_point_jitter(x, range):
     return x - (random.random() * range - range / 2)
