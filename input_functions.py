@@ -1,10 +1,15 @@
 import random
 
-import numpy as np
-
 import functions
 import matplotlib.pyplot as plt
 
+def file_input(name):
+    f = open(name, "r")
+    nodes = []
+    for line in f:
+        nodes.append(tuple(float(x) for x in line.strip().split(',')))
+    f.close()
+    return nodes
 
 def plotting(func, a, b, points=None, step=None, color='C0', linestyle='dotted'):
     if not step:
@@ -50,11 +55,15 @@ def intro(): # zlozenia funkcji podawane sa od lewej do prawej, czyli w przypadk
     (a, b) = (float(x) for x in input().split())
     print("Wprowadz liczbe wezlow: ")
     num_of_nodes = int(input())
-    print("Wprowadz sposob wprowadzania wezlow: \n0 - z pliku \n1 - jitter \n2 - wybor losowy")
+    print("Wprowadz sposob wprowadzania wezlow: \n0 - z pliku \n1 - jitter")
     method = int(input())
-    # tu input trzeba zrobic tak, zeby na koncu points mial odpowiednie punkty [(x0, y0), (x1, y1), ...]
-    x_points = jitter(a, b, num_of_nodes)
-    points = [(x, output_function.calc(x)) for x in x_points]
+    if (method == 0):
+        print("Wprowadz nazwe pliku: ")
+        points = file_input(str(input()))
+    if (method == 1):
+        x_points = jitter(a, b, num_of_nodes)
+        points = [(x, output_function.calc(x)) for x in x_points]
+
     print(points)
     interpolate(output_function, a, b, points)
 
