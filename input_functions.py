@@ -71,6 +71,7 @@ def intro(): # zlozenia funkcji podawane sa od lewej do prawej, czyli w przypadk
 
     print(points)
     interpolate(output_function, a, b, points)
+    plt.show()
 
 def interpolate(func, a, b, points):
     plotting(func, a, b)
